@@ -1,0 +1,38 @@
+# DSA 4060 Personalized Movie Recommender
+
+## Student Details
+* **Name:** [Your Full Name]
+* **Student ID:** [Your Full Student ID]
+* **Assigned User ID:** 14
+
+## Project Objective
+This project builds a personalized content-based movie recommender system for a streaming platform[cite: 1]. Using historical user rating data, the system profiles individual preferences, vectorizes genre metadata, and uses cosine similarity to generate sensible, non-redundant recommendations for unrated movies[cite: 1, 2].
+
+## Datasets
+* `movies.csv`: Catalogue containing 36 movies with `movie_id`, `title`, and pipe-separated `genres`[cite: 1].
+* `ratings.csv`: Historical dataset containing 440 ratings across 40 users with `user_id`, `movie_id`, and `rating`[cite: 1].
+
+## Method / Approach
+1. **User Profiling:** Filtered rating history for Assigned User 14 and identified positively rated titles ($\text{rating} \ge 4.0$)[cite: 1, 2].
+2. **Feature Extraction:** Vectorized movie genres into numerical representations using `CountVectorizer` on pipe-separated genre strings[cite: 2].
+3. **User Profile Representation:** Aggregated the feature vectors of the user's liked movies to construct a representative preference profile vector[cite: 2].
+4. **Similarity & Ranking:** Computed cosine similarity between the user profile vector and all candidate movies[cite: 2]. Excluded movies already rated by User 14 and extracted the top 5 highest-scoring titles[cite: 2].
+
+## How to Run the Notebook
+1. **Prerequisites:** Python 3.8+ with `pandas`, `numpy`, and `scikit-learn` installed[cite: 1].
+2. **Setup:** Place `DSA4060_Recommender_13.ipynb`, `movies.csv`, and `ratings.csv` in the same directory[cite: 1, 3].
+3. **Execution:** Open the notebook in Google Colab or Jupyter Notebook and execute all code cells sequentially from top to bottom[cite: 1, 3].
+
+## Recommendation Results
+
+| Rank | Recommended Movie | Genres | Reason |
+| :---: | :--- | :--- | :--- |
+| **1** | **Mad Max: Fury Road** | Action\|Adventure | Directly matches the core 'Action' preference from top-rated movies (*The Matrix*, *Avengers: Endgame*)[cite: 2]. |
+| **2** | **Mission: Impossible - Fallout** | Action\|Thriller | Aligns with high-rated 'Action' and thriller titles (*John Wick*, *Edge of Tomorrow*)[cite: 2]. |
+| **3** | **Sherlock Holmes** | Mystery\|Action | Features the 'Action' genre consistently present in all top-rated movies in the user profile[cite: 2]. |
+| **4** | **Inception** | Sci-Fi\|Thriller | Combines the 'Sci-Fi' genre from the user's highest rated movie (*The Matrix*) with high-stakes thriller elements[cite: 2]. |
+| **5** | **Interstellar** | Sci-Fi\|Drama | Shares the 'Sci-Fi' genre heavily favored in top-rated movies (*The Matrix*, *Edge of Tomorrow*)[cite: 2]. |
+
+## Limitation and Suggested Improvement
+* **Limitation:** The current recommender relies exclusively on coarse genre text matching[cite: 2, 3]. It ignores non-genre metadata (directors, actors, release year) and user rating signals below 4.0, which leads to over-specialization.
+* **Suggested Improvement:** Build a hybrid recommendation system that combines rich metadata attributes with Collaborative Filtering (such as Matrix Factorization / SVD) to capture broader user behavior patterns and increase recommendation variety.
